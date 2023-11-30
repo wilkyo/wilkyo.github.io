@@ -1,10 +1,14 @@
 import { ChangeEvent, FunctionComponent, useEffect } from "react";
-import { DIFFICULTIES_OPTIONS, TriviaCategory } from "../shared/types";
+import {
+  DIFFICULTIES_OPTIONS,
+  QuizCategory,
+  TriviaCategory,
+} from "../shared/types";
 import { useCategories } from "./hooks/useCategories";
 
 interface QuizChooserProps {
-  selectedCategory: TriviaCategory;
-  onChangeCategory: (category: TriviaCategory) => void;
+  selectedCategory: QuizCategory;
+  onChangeCategory: (category: QuizCategory) => void;
   selectedDifficulty: string;
   onChangeDifficulty: (category: string) => void;
   onClickCreate: () => void;
@@ -26,7 +30,7 @@ export const QuizChooser: FunctionComponent<QuizChooserProps> = ({
   const handleOnChangeCategory = (categoryString: string) => {
     const categoryId = parseInt(categoryString);
     const foundCategory = categories.find(
-      (cat: TriviaCategory) => cat.id === categoryId
+      (cat: QuizCategory) => cat.id === categoryId
     );
     // If the value is allowed
     if (foundCategory) {

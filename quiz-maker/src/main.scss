@@ -1,5 +1,7 @@
 // Override default variables before the import
 $body-bg: #ddd;
+$form-select-bg: white;
+$form-select-border-color: #aaa;
 
 // Import Bootstrap and its default variables
 @import "bootstrap/scss/bootstrap.scss";

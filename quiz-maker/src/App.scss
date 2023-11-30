@@ -8,3 +8,12 @@
 #root h1 {
   margin-bottom: 2rem;
 }
+
+#root select {
+  width: auto;
+  display: inline-block;
+}
+
+#root button {
+  vertical-align: baseline;
+}

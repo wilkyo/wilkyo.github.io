@@ -21,7 +21,7 @@ export const QuizChooser: FunctionComponent<QuizChooserProps> = ({
 
   useEffect(() => {
     onChangeCategory(categories[0]);
-  }, [categories]);
+  }, [categories, onChangeCategory]);
 
   const handleOnChangeCategory = (categoryString: string) => {
     const categoryId = parseInt(categoryString);

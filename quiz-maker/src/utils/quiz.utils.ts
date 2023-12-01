@@ -1,8 +1,22 @@
 import { AnswerStatus, QuizAnswer } from "../models/quiz.types";
 
+/**
+ * Converts Base64 encoded bytes to percent-encoding, and then get the original string.
+ * Manages the Unicode characters atob cannot.
+ */
+export const decodeBase64WithUnicode = (encodedString: string): string => {
+  // escape is deprecated in this: decodeURIComponent(escape(atob(encodedString)));
+  const percentEncodedStr = atob(encodedString)
+    .split("")
+    .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+    .join("");
+
+  return decodeURIComponent(percentEncodedStr);
+};
+
 export const makeAnswer = (answer: string) => ({
   id: answer,
-  answer: atob(answer),
+  answer: decodeBase64WithUnicode(answer),
   status: AnswerStatus.unchecked,
 });
 

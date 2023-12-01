@@ -1,6 +1,10 @@
 import { useContext } from "react";
 import { OpenTdbData, OpenTdbResult } from "../../models/quiz.types";
-import { makeAnswer, randomizeAnswers } from "../../utils/quiz.utils";
+import {
+  decodeBase64WithUnicode,
+  makeAnswer,
+  randomizeAnswers,
+} from "../../utils/quiz.utils";
 import { QuizContext } from "../QuizContextProvider";
 
 /**
@@ -19,7 +23,7 @@ export const useQuestions = () => {
       setQuestions([
         ...data.results.map((res: OpenTdbResult) => ({
           id: res.question,
-          question: atob(res.question),
+          question: decodeBase64WithUnicode(res.question),
           correctAnswer: res.correct_answer,
           // Answers displayed in a random order
           answers: randomizeAnswers([

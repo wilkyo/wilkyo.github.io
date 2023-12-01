@@ -1,5 +1,9 @@
 import { PropsWithChildren, createContext, useState } from "react";
-import { DEFAULT_CATEGORY, QuizCategory, QuizQuestion } from "../shared/types";
+import {
+  DEFAULT_CATEGORY,
+  QuizCategory,
+  QuizQuestion,
+} from "../shared/quiz.types";
 
 interface QuizContextProps {
   categories: QuizCategory[];

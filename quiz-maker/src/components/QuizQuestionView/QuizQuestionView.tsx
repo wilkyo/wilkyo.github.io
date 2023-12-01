@@ -1,11 +1,11 @@
 import { FunctionComponent } from "react";
-import { QuizAnswer, QuizQuestion } from "../../shared/types";
+import { QuizAnswer, QuizQuestion } from "../../shared/quiz.types";
 import { QuizAnswerView } from "../QuizAnswerView/QuizAnswerView";
 import "./QuizQuestionView.scss";
 
 interface QuizQuestionViewProps {
   question: QuizQuestion;
-  onClickAnswer: (
+  onClickAnswer?: (
     currentQuestion: QuizQuestion,
     clickedAnswer: QuizAnswer
   ) => void;
@@ -24,7 +24,7 @@ export const QuizQuestionView: FunctionComponent<QuizQuestionViewProps> = ({
             key={answer.id}
             answer={answer}
             onClickAnswer={(clickedAnswer: QuizAnswer) =>
-              onClickAnswer(question, clickedAnswer)
+              onClickAnswer && onClickAnswer(question, clickedAnswer)
             }
           />
         ))}

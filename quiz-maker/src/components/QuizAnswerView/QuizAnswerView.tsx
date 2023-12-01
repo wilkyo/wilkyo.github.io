@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { AnswerStatus, QuizAnswer } from "../../shared/types";
+import { AnswerStatus, QuizAnswer } from "../../shared/quiz.types";
 import "./QuizAnswerView.scss";
 
 interface QuizAnswerViewProps {

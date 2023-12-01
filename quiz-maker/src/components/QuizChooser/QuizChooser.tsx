@@ -3,7 +3,7 @@ import {
   DIFFICULTIES_OPTIONS,
   QuizCategory,
   TriviaCategory,
-} from "../../shared/types";
+} from "../../shared/quiz.types";
 import { useCategories } from "../hooks/useCategories";
 
 interface QuizChooserProps {

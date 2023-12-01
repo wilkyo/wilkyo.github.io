@@ -1,11 +1,21 @@
+import { HashRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import { QuizContextProvider } from "./components/QuizContextProvider";
-import { QuizMakerPage } from "./components/QuizMakerPage";
+import { QuizMakerPage } from "./components/pages/QuizMakerPage";
+import { QuizResultsPage } from "./components/pages/QuizResultsPage";
+
+export const ROUTE_QUIZ = "/";
+export const ROUTE_RESULTS = "/results";
 
 function App() {
   return (
     <QuizContextProvider>
-      <QuizMakerPage />
+      <HashRouter>
+        <Routes>
+          <Route path={ROUTE_QUIZ} element={<QuizMakerPage />} />
+          <Route path={ROUTE_RESULTS} element={<QuizResultsPage />} />
+        </Routes>
+      </HashRouter>
     </QuizContextProvider>
   );
 }

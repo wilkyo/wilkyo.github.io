@@ -1,5 +1,6 @@
 import { FormEvent, FunctionComponent, useContext, useState } from "react";
-import { makeAnswer, randomizeAnswers } from "../shared/quiz.utils";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_RESULTS } from "../../App";
 import {
   AnswerStatus,
   DEFAULT_CATEGORY,
@@ -9,11 +10,16 @@ import {
   QuizAnswer,
   QuizCategory,
   QuizQuestion,
-} from "../shared/types";
-import { QuizChooser } from "./QuizChooser/QuizChooser";
-import { QuizContext } from "./QuizContextProvider";
+} from "../../shared/quiz.types";
+import {
+  getAnswerStatus,
+  makeAnswer,
+  randomizeAnswers,
+} from "../../shared/quiz.utils";
+import { QuizChooser } from "../QuizChooser/QuizChooser";
+import { QuizContext } from "../QuizContextProvider";
+import { QuizQuestionView } from "../QuizQuestionView/QuizQuestionView";
 import "./QuizMakerPage.scss";
-import { QuizQuestionView } from "./QuizQuestionView/QuizQuestionView";
 
 export const QuizMakerPage: FunctionComponent = () => {
   const [selectedCategory, setSelectedCategory] =
@@ -24,6 +30,7 @@ export const QuizMakerPage: FunctionComponent = () => {
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
   const { questions, setQuestions } = useContext(QuizContext);
+  const navigate = useNavigate();
 
   const handleFetchedDataQuestions = (data: OpenTdbData) => {
     if (data.response_code === 0) {
@@ -58,22 +65,22 @@ export const QuizMakerPage: FunctionComponent = () => {
   };
 
   const handleOnClickAnswer = (question: QuizQuestion, answer: QuizAnswer) => {
-    // TODO: Return if already submitted
-
     const newQuestions = [...questions];
     // Foreach to keep the order
     newQuestions.forEach((newQuestion: QuizQuestion) => {
       if (newQuestion.question === question.question) {
-        const newAnswers = [...newQuestion.answers];
-        newAnswers.forEach((newAnswer) => {
-          if (newAnswer.id === answer.id) {
-            // Reverse
-            newAnswer.status =
-              newAnswer.status === AnswerStatus.unchecked
+        // Only one answer at a time
+        newQuestion.answers = [
+          ...newQuestion.answers.map((newAnswer: QuizAnswer) => ({
+            ...newAnswer,
+            status:
+              // So we uncheck the others or this one if it was checked
+              newAnswer.id === answer.id &&
+              answer.status === AnswerStatus.unchecked
                 ? AnswerStatus.checked
-                : AnswerStatus.unchecked;
-          }
-        });
+                : AnswerStatus.unchecked,
+          })),
+        ];
       }
     });
     setQuestions(newQuestions);
@@ -90,12 +97,24 @@ export const QuizMakerPage: FunctionComponent = () => {
 
   const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("ON SUBMIT");
+    setQuestions([
+      ...questions.map((question: QuizQuestion) => ({
+        ...question,
+        answers: [
+          ...question.answers.map((answer: QuizAnswer) => ({
+            ...answer,
+            status: getAnswerStatus(answer, question.correctAnswer),
+          })),
+        ],
+      })),
+    ]);
+
+    navigate(ROUTE_RESULTS);
   };
 
   return (
     <>
-      <h1>QUIZ MAKER</h1>
+      <h1>Quiz Maker</h1>
       <form onSubmit={handleOnSubmit}>
         <QuizChooser
           selectedCategory={selectedCategory}

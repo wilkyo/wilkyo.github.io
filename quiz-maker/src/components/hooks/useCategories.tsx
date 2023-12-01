@@ -22,6 +22,7 @@ export const useCategories = () => {
   );
 
   useEffect(() => {
+    // The default list has only one category: the placeholder
     if (categories.length === 1) {
       fetch("https://opentdb.com/api_category.php")
         .then((response: Response) => response.json())

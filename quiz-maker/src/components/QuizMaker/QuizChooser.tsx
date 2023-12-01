@@ -22,6 +22,7 @@ export const QuizChooser: FunctionComponent<QuizChooserProps> = ({
   onChangeDifficulty,
   onClickCreate,
 }) => {
+  // Retrieves the categories from the api
   const { categories } = useCategories();
 
   useEffect(() => {

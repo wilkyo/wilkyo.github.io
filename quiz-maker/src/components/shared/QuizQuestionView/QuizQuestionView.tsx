@@ -16,8 +16,8 @@ export const QuizQuestionView: FunctionComponent<QuizQuestionViewProps> = ({
   onClickAnswer,
 }) => {
   return (
-    <div className="quiz-question" key={question.question}>
-      <span>{atob(question.question)}</span>
+    <div className="quiz-question">
+      <span>{question.question}</span>
       <div className="quiz-answers">
         {question.answers.map((answer: QuizAnswer) => (
           <QuizAnswerView

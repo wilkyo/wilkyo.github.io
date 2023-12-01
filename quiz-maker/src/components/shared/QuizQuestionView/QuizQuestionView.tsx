@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { QuizAnswer, QuizQuestion } from "../../shared/quiz.types";
+import { QuizAnswer, QuizQuestion } from "../../../models/quiz.types";
 import { QuizAnswerView } from "../QuizAnswerView/QuizAnswerView";
 import "./QuizQuestionView.scss";
 

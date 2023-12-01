@@ -1,0 +1,13 @@
+.form-select {
+  &.category-select {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  &.difficulty-select {
+    border-radius: 0;
+  }
+}
+.btn.create-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

@@ -1,4 +1,6 @@
 import { FunctionComponent, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_QUIZ } from "../../App";
 import {
   AnswerStatus,
   QuizAnswer,
@@ -7,10 +9,12 @@ import {
 import { QuizContext } from "../QuizContextProvider";
 import { QuizQuestionView } from "../QuizQuestionView/QuizQuestionView";
 import { QuizScore } from "../QuizScore/QuizScore";
+import "./QuizResultsPage.scss";
 
 export const QuizResultsPage: FunctionComponent = () => {
   const [score, setScore] = useState<number>();
-  const { questions } = useContext(QuizContext);
+  const { questions, setQuestions } = useContext(QuizContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setScore(
@@ -23,6 +27,11 @@ export const QuizResultsPage: FunctionComponent = () => {
     );
   }, [questions]);
 
+  const handleOnClickCreate = () => {
+    setQuestions([]);
+    navigate(ROUTE_QUIZ);
+  };
+
   return (
     <>
       <h1>Results</h1>
@@ -31,9 +40,16 @@ export const QuizResultsPage: FunctionComponent = () => {
           <QuizQuestionView key={question.question} question={question} />
         ))}
       </div>
-      {score !== undefined && (
-        <QuizScore score={score} total={questions.length} />
-      )}
+      {score !== undefined && <QuizScore score={score} />}
+      <div className="create-new-button">
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleOnClickCreate}
+        >
+          Create a new quiz
+        </button>
+      </div>
     </>
   );
 };

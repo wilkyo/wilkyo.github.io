@@ -76,6 +76,7 @@ export const QuizMakerPage: FunctionComponent = () => {
     navigate(ROUTE_RESULTS);
   };
 
+  // Submitability is derived by the questions and the calculation can be consuming
   // If all the questions have at least one checked answer
   const isFormValid = useMemo(() => {
     return (

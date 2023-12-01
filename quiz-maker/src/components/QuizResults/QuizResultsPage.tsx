@@ -15,7 +15,7 @@ export const QuizResultsPage: FunctionComponent = () => {
   const { questions, setQuestions } = useQuestions();
   const navigate = useNavigate();
 
-  // Score is derived by the questions and the calculation car be consuming
+  // Score is derived by the questions and the calculation can be consuming
   const score = useMemo(
     () =>
       questions.filter(

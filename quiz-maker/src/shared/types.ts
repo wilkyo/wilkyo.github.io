@@ -44,5 +44,18 @@ export const DIFFICULTIES_OPTIONS = [
 export interface QuizQuestion {
   question: string;
   correctAnswer: string;
-  answers: string[];
+  answers: QuizAnswer[];
+}
+
+export interface QuizAnswer {
+  id: string;
+  answer: string;
+  status: AnswerStatus;
+}
+
+export enum AnswerStatus {
+  unchecked,
+  checked,
+  success,
+  error,
 }

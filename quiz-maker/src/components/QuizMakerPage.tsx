@@ -64,16 +64,18 @@ export const QuizMakerPage: FunctionComponent = () => {
     // Foreach to keep the order
     newQuestions.forEach((newQuestion: QuizQuestion) => {
       if (newQuestion.question === question.question) {
-        const newAnswers = [...newQuestion.answers];
-        newAnswers.forEach((newAnswer) => {
-          if (newAnswer.id === answer.id) {
-            // Reverse
-            newAnswer.status =
-              newAnswer.status === AnswerStatus.unchecked
+        // Only one answer at a time
+        newQuestion.answers = [
+          ...newQuestion.answers.map((newAnswer: QuizAnswer) => ({
+            ...newAnswer,
+            status:
+              // So we uncheck the others or this one if it was checked
+              newAnswer.id === answer.id &&
+              answer.status === AnswerStatus.unchecked
                 ? AnswerStatus.checked
-                : AnswerStatus.unchecked;
-          }
-        });
+                : AnswerStatus.unchecked,
+          })),
+        ];
       }
     });
     setQuestions(newQuestions);

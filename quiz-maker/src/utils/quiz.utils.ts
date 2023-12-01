@@ -1,4 +1,4 @@
-import { AnswerStatus, QuizAnswer } from "./quiz.types";
+import { AnswerStatus, QuizAnswer } from "../models/quiz.types";
 
 export const makeAnswer = (answer: string) => ({
   id: answer,

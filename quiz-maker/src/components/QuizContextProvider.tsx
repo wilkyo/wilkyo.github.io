@@ -3,7 +3,7 @@ import {
   DEFAULT_CATEGORY,
   QuizCategory,
   QuizQuestion,
-} from "../shared/quiz.types";
+} from "../models/quiz.types";
 
 interface QuizContextProps {
   categories: QuizCategory[];

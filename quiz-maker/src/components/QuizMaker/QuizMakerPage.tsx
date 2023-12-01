@@ -10,15 +10,15 @@ import {
   QuizAnswer,
   QuizCategory,
   QuizQuestion,
-} from "../../shared/quiz.types";
+} from "../../models/quiz.types";
 import {
   getAnswerStatus,
   makeAnswer,
   randomizeAnswers,
-} from "../../shared/quiz.utils";
-import { QuizChooser } from "../QuizChooser/QuizChooser";
+} from "../../utils/quiz.utils";
 import { QuizContext } from "../QuizContextProvider";
-import { QuizQuestionView } from "../QuizQuestionView/QuizQuestionView";
+import { QuizQuestionView } from "../shared/QuizQuestionView/QuizQuestionView";
+import { QuizChooser } from "./QuizChooser";
 import "./QuizMakerPage.scss";
 
 export const QuizMakerPage: FunctionComponent = () => {

@@ -3,8 +3,9 @@ import {
   DIFFICULTIES_OPTIONS,
   QuizCategory,
   TriviaCategory,
-} from "../../shared/quiz.types";
+} from "../../models/quiz.types";
 import { useCategories } from "../hooks/useCategories";
+import "./QuizChooser.scss";
 
 interface QuizChooserProps {
   selectedCategory: QuizCategory;
@@ -49,7 +50,7 @@ export const QuizChooser: FunctionComponent<QuizChooserProps> = ({
     <div>
       <select
         id="categorySelect"
-        className="form-select"
+        className="form-select category-select"
         value={selectedCategory.id}
         onChange={(event: ChangeEvent<HTMLSelectElement>) =>
           handleOnChangeCategory(event.target.value)
@@ -63,7 +64,7 @@ export const QuizChooser: FunctionComponent<QuizChooserProps> = ({
       </select>
       <select
         id="difficultySelect"
-        className="form-select"
+        className="form-select difficulty-select"
         value={selectedDifficulty}
         onChange={(event: ChangeEvent<HTMLSelectElement>) =>
           handleOnChangeDifficulty(event.target.value)
@@ -78,7 +79,7 @@ export const QuizChooser: FunctionComponent<QuizChooserProps> = ({
       <button
         type="button"
         id="createBtn"
-        className="btn btn-primary"
+        className="btn btn-primary create-button"
         onClick={onClickCreate}
       >
         Create

@@ -5,11 +5,11 @@ import {
   AnswerStatus,
   QuizAnswer,
   QuizQuestion,
-} from "../../shared/quiz.types";
+} from "../../models/quiz.types";
 import { QuizContext } from "../QuizContextProvider";
-import { QuizQuestionView } from "../QuizQuestionView/QuizQuestionView";
-import { QuizScore } from "../QuizScore/QuizScore";
+import { QuizQuestionView } from "../shared/QuizQuestionView/QuizQuestionView";
 import "./QuizResultsPage.scss";
+import { QuizScore } from "./QuizScore";
 
 export const QuizResultsPage: FunctionComponent = () => {
   const [score, setScore] = useState<number>();

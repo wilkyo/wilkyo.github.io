@@ -1,24 +1,32 @@
 import { PropsWithChildren, createContext, useState } from "react";
-import { DEFAULT_CATEGORY, TriviaCategory } from "../shared/types";
+import { DEFAULT_CATEGORY, QuizCategory, QuizQuestion } from "../shared/types";
 
 interface QuizContextProps {
-  categories: TriviaCategory[];
-  setCategories: (categories: TriviaCategory[]) => void;
+  categories: QuizCategory[];
+  setCategories: (categories: QuizCategory[]) => void;
+  questions: QuizQuestion[];
+  setQuestions: (questions: QuizQuestion[]) => void;
 }
 
 export const QuizContext = createContext<QuizContextProps>({
   categories: [],
   setCategories: () => null,
+  questions: [],
+  setQuestions: () => null,
 });
 
 export const QuizContextProvider = (
   props: PropsWithChildren<Record<never, never>>
 ) => {
-  const [categories, setCategories] = useState<TriviaCategory[]>([
+  const [categories, setCategories] = useState<QuizCategory[]>([
     DEFAULT_CATEGORY,
   ]);
+  const [questions, setQuestions] = useState<QuizQuestion[]>([]);
 
   return (
-    <QuizContext.Provider value={{ categories, setCategories }} {...props} />
+    <QuizContext.Provider
+      value={{ categories, setCategories, questions, setQuestions }}
+      {...props}
+    />
   );
 };

@@ -1,22 +1,16 @@
-import { FormEvent, FunctionComponent, useContext, useState } from "react";
+import { FormEvent, FunctionComponent, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_RESULTS } from "../../App";
 import {
   AnswerStatus,
   DEFAULT_CATEGORY,
   DIFFICULTIES_OPTIONS,
-  OpenTdbData,
-  OpenTdbResult,
   QuizAnswer,
   QuizCategory,
   QuizQuestion,
 } from "../../models/quiz.types";
-import {
-  getAnswerStatus,
-  makeAnswer,
-  randomizeAnswers,
-} from "../../utils/quiz.utils";
-import { QuizContext } from "../QuizContextProvider";
+import { getAnswerStatus } from "../../utils/quiz.utils";
+import { useQuestions } from "../hooks/useQuestions";
 import { QuizQuestionView } from "../shared/QuizQuestionView/QuizQuestionView";
 import { QuizChooser } from "./QuizChooser";
 import "./QuizMakerPage.scss";
@@ -27,40 +21,17 @@ export const QuizMakerPage: FunctionComponent = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>(
     DIFFICULTIES_OPTIONS[0]
   );
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
-  const { questions, setQuestions } = useContext(QuizContext);
+  const { questions, setQuestions, fetchQuestions } = useQuestions();
   const navigate = useNavigate();
 
-  const handleFetchedDataQuestions = (data: OpenTdbData) => {
-    if (data.response_code === 0) {
-      const questionsFetched: QuizQuestion[] = [
-        ...data.results.map((res: OpenTdbResult) => ({
-          question: res.question,
-          correctAnswer: res.correct_answer,
-          answers: randomizeAnswers([
-            makeAnswer(res.correct_answer),
-            ...res.incorrect_answers.map(makeAnswer),
-          ]),
-        })),
-      ];
-      setQuestions(questionsFetched);
-    }
-  };
-
   const handleOnClickCreate = () => {
+    // Both select input have been selected
     if (
       selectedCategory !== DEFAULT_CATEGORY &&
       selectedDifficulty !== DIFFICULTIES_OPTIONS[0]
     ) {
-      fetch(
-        `https://opentdb.com/api.php?amount=5&category=${
-          selectedCategory.id
-        }&difficulty=${selectedDifficulty.toLocaleLowerCase()}&type=multiple&encode=base64`
-      )
-        .then((response: Response) => response.json())
-        .then((data: OpenTdbData) => handleFetchedDataQuestions(data))
-        .catch((error) => console.error(error));
+      fetchQuestions(selectedCategory.id, selectedDifficulty.toLowerCase());
     }
   };
 
@@ -68,13 +39,13 @@ export const QuizMakerPage: FunctionComponent = () => {
     const newQuestions = [...questions];
     // Foreach to keep the order
     newQuestions.forEach((newQuestion: QuizQuestion) => {
-      if (newQuestion.question === question.question) {
-        // Only one answer at a time
+      if (newQuestion.id === question.id) {
+        // Only one answer at a time...
         newQuestion.answers = [
           ...newQuestion.answers.map((newAnswer: QuizAnswer) => ({
             ...newAnswer,
             status:
-              // So we uncheck the others or this one if it was checked
+              // ... so we uncheck the others or this one if it was checked
               newAnswer.id === answer.id &&
               answer.status === AnswerStatus.unchecked
                 ? AnswerStatus.checked
@@ -84,19 +55,12 @@ export const QuizMakerPage: FunctionComponent = () => {
       }
     });
     setQuestions(newQuestions);
-
-    // If all the questions have at least one checked answer
-    setIsFormValid(
-      newQuestions.filter((newQuestion: QuizQuestion) =>
-        newQuestion.answers.find(
-          (newAnswer: QuizAnswer) => newAnswer.status === AnswerStatus.checked
-        )
-      ).length === newQuestions.length
-    );
   };
 
   const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // Updates the answers' status of each question
     setQuestions([
       ...questions.map((question: QuizQuestion) => ({
         ...question,
@@ -112,6 +76,19 @@ export const QuizMakerPage: FunctionComponent = () => {
     navigate(ROUTE_RESULTS);
   };
 
+  // Submitability is derived by the questions and the calculation can be consuming
+  // If all the questions have at least one checked answer
+  const isFormValid = useMemo(() => {
+    return (
+      questions.length > 0 &&
+      questions.filter((newQuestion: QuizQuestion) =>
+        newQuestion.answers.find(
+          (newAnswer: QuizAnswer) => newAnswer.status === AnswerStatus.checked
+        )
+      ).length === questions.length
+    );
+  }, [questions]);
+
   return (
     <>
       <h1>Quiz Maker</h1>
@@ -126,7 +103,7 @@ export const QuizMakerPage: FunctionComponent = () => {
         <div className="questions">
           {questions.map((question: QuizQuestion) => (
             <QuizQuestionView
-              key={question.question}
+              key={question.id}
               question={question}
               onClickAnswer={handleOnClickAnswer}
             />

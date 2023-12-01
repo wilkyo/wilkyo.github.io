@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent } from "react";
 import "./QuizScore.scss";
 
 interface QuizScoreProps {
@@ -6,27 +6,22 @@ interface QuizScoreProps {
 }
 
 export const QuizScore: FunctionComponent<QuizScoreProps> = ({ score }) => {
-  const [stateClassName, setStateClassName] = useState("");
-
-  useEffect(() => {
+  const calculateClassName = () => {
     switch (score) {
       case 0:
       case 1:
-        setStateClassName("failure");
-        break;
+        return "failure";
       case 2:
       case 3:
-        setStateClassName("partial");
-        break;
+        return "partial";
       default:
-        setStateClassName("success");
-        break;
+        return "success";
     }
-  }, [score]);
+  };
 
   return (
     <div
-      className={`quiz-score ${stateClassName}`}
+      className={`quiz-score ${calculateClassName()}`}
     >{`You scored ${score} out of 5`}</div>
   );
 };

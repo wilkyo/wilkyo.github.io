@@ -11,7 +11,7 @@ export const QuizAnswerView: FunctionComponent<QuizAnswerViewProps> = ({
   answer,
   onClickAnswer,
 }) => {
-  const buttonStyle = () => {
+  const buttonClassName = () => {
     switch (answer.status) {
       case AnswerStatus.checked:
         return "primary";
@@ -28,7 +28,7 @@ export const QuizAnswerView: FunctionComponent<QuizAnswerViewProps> = ({
   return (
     <button
       type="button"
-      className={`btn btn-${buttonStyle()} answer-button`}
+      className={`btn btn-${buttonClassName()} answer-button`}
       onClick={() => onClickAnswer(answer)}
     >
       {answer.answer}

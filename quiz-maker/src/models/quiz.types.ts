@@ -42,6 +42,7 @@ export const DIFFICULTIES_OPTIONS = [
 ];
 
 export interface QuizQuestion {
+  id: string;
   question: string;
   correctAnswer: string;
   answers: QuizAnswer[];

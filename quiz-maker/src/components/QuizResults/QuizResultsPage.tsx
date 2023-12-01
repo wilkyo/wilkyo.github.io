@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useEffect, useState } from "react";
+import { FunctionComponent, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_QUIZ } from "../../App";
 import {
@@ -6,28 +6,29 @@ import {
   QuizAnswer,
   QuizQuestion,
 } from "../../models/quiz.types";
-import { QuizContext } from "../QuizContextProvider";
+import { useQuestions } from "../hooks/useQuestions";
 import { QuizQuestionView } from "../shared/QuizQuestionView/QuizQuestionView";
 import "./QuizResultsPage.scss";
 import { QuizScore } from "./QuizScore";
 
 export const QuizResultsPage: FunctionComponent = () => {
-  const [score, setScore] = useState<number>();
-  const { questions, setQuestions } = useContext(QuizContext);
+  const { questions, setQuestions } = useQuestions();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setScore(
+  // Score is derived by the questions and the calculation can be consuming
+  const score = useMemo(
+    () =>
       questions.filter(
         (question: QuizQuestion) =>
           !question.answers.find(
             (answer: QuizAnswer) => answer.status === AnswerStatus.error
           )
-      ).length
-    );
-  }, [questions]);
+      ).length,
+    [questions]
+  );
 
   const handleOnClickCreate = () => {
+    // Reset the questions
     setQuestions([]);
     navigate(ROUTE_QUIZ);
   };
@@ -37,7 +38,7 @@ export const QuizResultsPage: FunctionComponent = () => {
       <h1>Results</h1>
       <div className="questions">
         {questions.map((question: QuizQuestion) => (
-          <QuizQuestionView key={question.question} question={question} />
+          <QuizQuestionView key={question.id} question={question} />
         ))}
       </div>
       {score !== undefined && <QuizScore score={score} />}

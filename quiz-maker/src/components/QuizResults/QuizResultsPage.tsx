@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useMemo } from "react";
+import { FunctionComponent, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_QUIZ } from "../../App";
 import {
@@ -6,13 +6,13 @@ import {
   QuizAnswer,
   QuizQuestion,
 } from "../../models/quiz.types";
-import { QuizContext } from "../QuizContextProvider";
+import { useQuestions } from "../hooks/useQuestions";
 import { QuizQuestionView } from "../shared/QuizQuestionView/QuizQuestionView";
 import "./QuizResultsPage.scss";
 import { QuizScore } from "./QuizScore";
 
 export const QuizResultsPage: FunctionComponent = () => {
-  const { questions, setQuestions } = useContext(QuizContext);
+  const { questions, setQuestions } = useQuestions();
   const navigate = useNavigate();
 
   // Score is derived by the questions and the calculation car be consuming

@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect } from "react";
-import { CategoriesData, DEFAULT_CATEGORY } from "../../shared/types";
+import { CategoriesData, DEFAULT_CATEGORY } from "../../shared/quiz.types";
 import { QuizContext } from "../QuizContextProvider";
 
 /**

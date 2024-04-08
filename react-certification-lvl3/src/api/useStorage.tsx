@@ -11,8 +11,8 @@ export const useLocalStorage = (
     console.log("Init storage handler for", key);
     const handleStorageUpdate = () => {
       const newValue = localStorage.getItem(key);
-      console.log(`Updated "${key}" from storage`, newValue);
       setLocalValue(newValue);
+      console.debug(`Updated "${key}" from storage`, newValue);
     };
     window.addEventListener("storage", handleStorageUpdate);
 
@@ -23,7 +23,7 @@ export const useLocalStorage = (
   }, [key]);
 
   const setValue = (value: string) => {
-    console.log(`Update "${key}" by setter`, value);
+    console.debug(`Update "${key}" by setter`, value);
     localStorage.setItem(key, value);
     window.dispatchEvent(new Event("storage"));
   };

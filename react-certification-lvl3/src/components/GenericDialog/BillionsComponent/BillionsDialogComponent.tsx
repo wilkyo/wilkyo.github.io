@@ -19,7 +19,6 @@ export const BillionsDialogComponent: FC = () => {
       </button>
       <GenericDialogComponent
         visible={isDialogVisible}
-        isModal
         header={
           <div className="billions-dialog--header">
             <div className="container">

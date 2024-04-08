@@ -30,6 +30,7 @@ export const TeamRemovalDialogComponent: FC<TeamRemovalDialogComponentProps> = (
         Remove the team !
       </button>
       <GenericDialogComponent
+        isModal
         visible={isDialogVisible}
         footer={
           <div className="team-removal--footer">

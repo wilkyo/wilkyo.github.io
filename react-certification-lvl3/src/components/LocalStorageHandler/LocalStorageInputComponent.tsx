@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
-import { useLocalStorage } from "../../api/useStorage";
+import { useLocalStorage } from "../../api/useLocalStorage";
 
 export const LocalStorageInputComponent: FunctionComponent = () => {
   const [input, setName] = useLocalStorage("input");
-  // We observe that the componend is rerendered only when the "input" storage value is updated
+  // We observe that the component is rerendered only when the "input" storage value is updated
   console.log("Rendered LocalStorageInputComponent");
 
   return (

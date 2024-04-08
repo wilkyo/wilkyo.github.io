@@ -20,7 +20,7 @@ export const GenericDialogComponent: FC<GenericDialogProps> = (
   return (
     visible && (
       <>
-        {isModal && <div className="generic-dialog-modal-overlay"></div>}
+        {isModal && <div className="generic-dialog-modal--overlay"></div>}
         <div
           className={`generic-dialog${isModal ? " generic-dialog-modal" : ""}`}
         >

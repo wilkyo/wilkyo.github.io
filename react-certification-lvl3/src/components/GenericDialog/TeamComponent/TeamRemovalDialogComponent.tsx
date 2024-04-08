@@ -22,10 +22,10 @@ export const TeamRemovalDialogComponent: FC<TeamRemovalDialogComponentProps> = (
   return (
     <>
       <button
-        className="btn btn-outline-secondary btn-lg"
+        className="btn btn-danger btn-lg"
         onClick={() => setIsDialogVisible(true)}
       >
-        Click me to show the dialog !
+        Remove the team !
       </button>
       <GenericDialogComponent
         visible={isDialogVisible}

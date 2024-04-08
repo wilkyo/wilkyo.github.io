@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { MenuComponent } from "../MenuComponent";
-import { TeamComponent } from "./GenericDialogOverlayComponent/TeamComponent";
+import { BillionsComponent } from "./BillionsComponent/BillionsComponent";
+import { TeamComponent } from "./TeamComponent/TeamComponent";
 
 export const GenericDialogPage: FC = () => {
   console.log("Rendered parent component");
@@ -14,6 +15,9 @@ export const GenericDialogPage: FC = () => {
       <MenuComponent />
       <h2>Here is a test with the overlay dialog</h2>
       <TeamComponent />
+      <hr />
+      <h2>Here is a test with the modal dialog</h2>
+      <BillionsComponent />
     </div>
   );
 };

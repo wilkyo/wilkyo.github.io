@@ -32,18 +32,21 @@ export const MenuComponent: FunctionComponent = () => {
 
   const { pathname } = useLocation();
   return (
-    <nav className="nav nav-pills nav-fill">
-      {routes.map((route: MenuRoute) => (
-        <Link
-          key={route.path}
-          className={`nav-item nav-link ${
-            pathname === route.path ? "active" : ""
-          }`}
-          to={route.path}
-        >
-          {route.label}
-        </Link>
-      ))}
-    </nav>
+    <>
+      <nav className="nav nav-pills nav-fill">
+        {routes.map((route: MenuRoute) => (
+          <Link
+            key={route.path}
+            className={`nav-item nav-link ${
+              pathname === route.path ? "active" : ""
+            }`}
+            to={route.path}
+          >
+            {route.label}
+          </Link>
+        ))}
+      </nav>
+      <hr />
+    </>
   );
 };

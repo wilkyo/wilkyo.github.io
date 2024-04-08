@@ -3,6 +3,7 @@
   &--body,
   &--footer {
     min-width: 50rem;
+    max-width: 50rem;
   }
   &--header {
     margin: 1rem 0;
@@ -15,7 +16,20 @@
     }
   }
   &--body {
+    img {
+      width: 70%;
+    }
   }
   &--footer {
+    padding-bottom: 1rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    button {
+      border: none;
+      background: none;
+    }
+    img {
+      height: 5rem;
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { MenuComponent } from "../MenuComponent";
 import { BillionsComponent } from "./BillionsComponent/BillionsComponent";
+import { loremIpsum } from "./BillionsComponent/data";
 import { TeamComponent } from "./TeamComponent/TeamComponent";
 
 export const GenericDialogPage: FC = () => {
@@ -16,6 +17,11 @@ export const GenericDialogPage: FC = () => {
       <TeamComponent />
       <hr />
       <BillionsComponent />
+      <hr />
+      <h2>And here is some padding text to have something behind the dialog</h2>
+      {loremIpsum.map((text: string) => (
+        <p key={text}>{text}</p>
+      ))}
     </div>
   );
 };

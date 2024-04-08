@@ -1,7 +1,7 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import { useLocalStorage } from "../../api/useLocalStorage";
 
-export const LocalStorageTextComponent: FunctionComponent = () => {
+export const LocalStorageTextComponent: FC = () => {
   // No need for setter
   const [text] = useLocalStorage("text");
   // We observe that the component is rerendered only when the "text" storage value is updated

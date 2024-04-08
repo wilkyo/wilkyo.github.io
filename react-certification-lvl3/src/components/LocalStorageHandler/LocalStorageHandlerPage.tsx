@@ -1,9 +1,9 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import { MenuComponent } from "../MenuComponent";
 import { LocalStorageInputComponent } from "./LocalStorageInputComponent";
 import { LocalStorageTextComponent } from "./LocalStorageTextComponent";
 
-export const LocalStorageHandlerPage: FunctionComponent = () => {
+export const LocalStorageHandlerPage: FC = () => {
   console.log("Rendered parent component");
 
   return (

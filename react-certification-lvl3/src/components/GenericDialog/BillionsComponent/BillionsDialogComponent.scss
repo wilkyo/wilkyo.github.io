@@ -1,4 +1,9 @@
 .billions-dialog {
+  &--header,
+  &--body,
+  &--footer {
+    min-width: 50rem;
+  }
   &--header {
     margin: 1rem 0;
 
@@ -8,5 +13,9 @@
     &--cross-container {
       text-align: right;
     }
+  }
+  &--body {
+  }
+  &--footer {
   }
 }

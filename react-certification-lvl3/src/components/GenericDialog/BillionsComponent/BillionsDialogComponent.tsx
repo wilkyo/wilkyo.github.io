@@ -3,7 +3,7 @@ import { GenericDialogComponent } from "../../../api/GenericDialogComponent/Gene
 import "./BillionsDialogComponent.scss";
 
 export const BillionsDialogComponent: FC = () => {
-  console.log("Rendered parent dialog component");
+  console.log("Rendered parent of billions' dialog component");
 
   const [isDialogVisible, setIsDialogVisible] = useState<boolean>(false);
 
@@ -37,9 +37,9 @@ export const BillionsDialogComponent: FC = () => {
             <hr />
           </div>
         }
-        footer={<div>And another...</div>}
+        footer={<div className="billions-dialog--footer">And another...</div>}
       >
-        A big picture
+        <div className="billions-dialog--body">A big picture</div>
       </GenericDialogComponent>
     </>
   );

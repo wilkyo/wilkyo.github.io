@@ -13,6 +13,7 @@ export const TeamComponent: FC = () => {
 
   return (
     <>
+      <h2>Here is a test with the overlay dialog</h2>
       {myTeam ? (
         <>
           <p>

@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { GenericDialogComponent } from "../../../api/GenericDialogComponent/GenericDialogComponent";
+import "./TeamRemovalDialogComponent.scss";
 
 interface TeamRemovalDialogComponentProps {
   team: string;
@@ -8,7 +9,8 @@ interface TeamRemovalDialogComponentProps {
 export const TeamRemovalDialogComponent: FC<TeamRemovalDialogComponentProps> = (
   props: TeamRemovalDialogComponentProps
 ) => {
-  console.log("Rendered parent dialog component");
+  console.log("Rendered parent of team removal's dialog component");
+
   const { team, onRemoveTeam } = props;
 
   const [isDialogVisible, setIsDialogVisible] = useState<boolean>(false);
@@ -30,17 +32,19 @@ export const TeamRemovalDialogComponent: FC<TeamRemovalDialogComponentProps> = (
       <GenericDialogComponent
         visible={isDialogVisible}
         footer={
-          <>
+          <div className="team-removal--footer">
             <button className="btn btn-light" onClick={handleOnClickNo}>
               No
             </button>
             <button className="btn btn-secondary" onClick={handleOnClickYes}>
               Yes
             </button>
-          </>
+          </div>
         }
       >
-        Are you sure you want to remove this team ?
+        <div className="team-removal--body">
+          Are you sure you want to remove this team ?
+        </div>
       </GenericDialogComponent>
     </>
   );

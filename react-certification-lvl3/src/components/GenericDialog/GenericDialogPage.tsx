@@ -13,10 +13,8 @@ export const GenericDialogPage: FC = () => {
         with any content
       </h1>
       <MenuComponent />
-      <h2>Here is a test with the overlay dialog</h2>
       <TeamComponent />
       <hr />
-      <h2>Here is a test with the modal dialog</h2>
       <BillionsComponent />
     </div>
   );

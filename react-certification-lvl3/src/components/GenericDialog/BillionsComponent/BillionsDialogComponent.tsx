@@ -11,15 +11,11 @@ export const BillionsDialogComponent: FC = () => {
 
   const handleOnClose = () => setIsDialogVisible(false);
 
-  const handleOnClickShow = () => {
-    setIsDialogVisible(true);
-  };
-
   return (
     <>
       <button
         className="btn btn-outline-secondary btn-lg"
-        onClick={handleOnClickShow}
+        onClick={() => setIsDialogVisible(true)}
       >
         Click me to show the dialog !
       </button>

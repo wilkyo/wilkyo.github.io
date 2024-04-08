@@ -1,0 +1,29 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+#root h1 {
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+#root select {
+  width: auto;
+  display: inline-block;
+}
+
+#root button {
+  vertical-align: baseline;
+  margin-top: 0.5rem;
+}
+
+form {
+  margin-top: 2em;
+}
+
+a.active {
+  font-weight: bold;
+}

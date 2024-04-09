@@ -1,13 +1,17 @@
-import { FunctionComponent, useMemo } from "react";
+import { FC, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ROUTE_HOME, ROUTE_LOCAL_STORAGE_HANDLER } from "../App";
+import {
+  ROUTE_GENERIC_DIALOG,
+  ROUTE_HOME,
+  ROUTE_LOCAL_STORAGE_HANDLER,
+} from "../App";
 
 interface MenuRoute {
   path: string;
   label: string;
 }
 
-export const MenuComponent: FunctionComponent = () => {
+export const MenuComponent: FC = () => {
   const routes: MenuRoute[] = useMemo(
     () => [
       {
@@ -19,11 +23,11 @@ export const MenuComponent: FunctionComponent = () => {
         label: "EXERCISE #1",
       },
       {
-        path: "",
+        path: ROUTE_GENERIC_DIALOG,
         label: "EXERCISE #2",
       },
       {
-        path: "TODO",
+        path: "",
         label: "EXERCISE #3",
       },
     ],

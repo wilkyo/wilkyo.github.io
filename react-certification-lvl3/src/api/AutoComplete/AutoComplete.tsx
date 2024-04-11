@@ -1,4 +1,4 @@
-import { ChangeEvent, PropsWithChildren, useState } from "react";
+import { ChangeEvent, PropsWithChildren, useMemo, useState } from "react";
 
 /**
  * This component is typed for the data it searches for.
@@ -18,7 +18,7 @@ interface AutoCompleteProps<T extends object> {
   placeholder?: string;
 }
 
-export const AutoCompleteComponent = <T extends object>(
+export const AutoComplete = <T extends object>(
   props: PropsWithChildren<AutoCompleteProps<T>>
 ) => {
   const {
@@ -32,32 +32,31 @@ export const AutoCompleteComponent = <T extends object>(
   console.log("Render AutoComplete component");
 
   const [inputValue, setInputValue] = useState<string>("");
-  const [filteredData, setFilteredData] = useState<T[]>([]);
 
-  const handleOnInputChange = (value: string) => {
-    setInputValue(value);
-    if (value === "" || value === " ") {
-      setFilteredData([]);
-    } else {
-      setFilteredData(
-        data
-          .filter((result: T) => {
-            const lowerCaseValue = value.toLowerCase();
-            const propA = result[labelProp]?.toString();
-            const propB = result[filterProp]?.toString();
-
-            return (
-              propA?.toLowerCase().includes(lowerCaseValue) ||
-              propB?.toLowerCase().includes(lowerCaseValue)
-            );
-          })
-          .map((result: T) => result)
-      );
+  /**
+   * When the input value change, the results list is filtered
+   * @param value The input value
+   */
+  const filteredData: T[] = useMemo(() => {
+    if (!data || inputValue === "" || inputValue === " ") {
+      return [];
     }
-  };
+
+    return data.filter((result: T) => {
+      const lowerCaseValue = inputValue.toLowerCase();
+      const propA = result[labelProp]?.toString();
+      const propB = result[filterProp]?.toString();
+
+      return (
+        propA?.toLowerCase().includes(lowerCaseValue) ||
+        propB?.toLowerCase().includes(lowerCaseValue)
+      );
+    });
+  }, [data, inputValue, labelProp, filterProp]);
 
   const handleOnValueSelected = (value: T) => {
     onValueChange(value);
+    setInputValue(""); // The filtered data will empty itself
   };
 
   return (
@@ -68,9 +67,10 @@ export const AutoCompleteComponent = <T extends object>(
         placeholder={placeholder}
         value={inputValue}
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          handleOnInputChange(event.target.value)
+          setInputValue(event.target.value)
         }
       />
+
       {filteredData.length > 0 && (
         <div className="autoComplete--selector">
           {filteredData.map((result: T) => (

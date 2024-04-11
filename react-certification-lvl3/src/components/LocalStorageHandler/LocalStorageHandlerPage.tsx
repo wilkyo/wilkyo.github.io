@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { MenuComponent } from "../MenuComponent";
-import { LocalStorageInputComponent } from "./LocalStorageInputComponent";
-import { LocalStorageTextComponent } from "./LocalStorageTextComponent";
+import { Menu } from "../Menu";
+import { LocalStorageInput } from "./LocalStorageInput";
+import { LocalStorageText } from "./LocalStorageText";
 
 export const LocalStorageHandlerPage: FC = () => {
   console.log("Rendered parent component");
@@ -12,10 +12,10 @@ export const LocalStorageHandlerPage: FC = () => {
         EXERCISE #1 - Create a generic localStorage handler usable by React
         function component
       </h1>
-      <MenuComponent />
-      <LocalStorageInputComponent />
+      <Menu />
+      <LocalStorageInput />
       <hr />
-      <LocalStorageTextComponent />
+      <LocalStorageText />
     </div>
   );
 };

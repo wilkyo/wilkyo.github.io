@@ -12,7 +12,7 @@ interface MenuRoute {
   label: string;
 }
 
-export const MenuComponent: FC = () => {
+export const Menu: FC = () => {
   const routes: MenuRoute[] = useMemo(
     () => [
       {

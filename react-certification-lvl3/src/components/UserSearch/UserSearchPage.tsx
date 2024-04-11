@@ -1,17 +1,15 @@
-import { FC } from "react";
-import { AutoCompleteComponent } from "../../api/AutoCompleteComponent/AutoCompleteComponent";
-import { LoaderComponent } from "../LoaderComponent";
-import { MenuComponent } from "../MenuComponent";
+import { FC, useState } from "react";
+import { AutoComplete } from "../../api/AutoComplete/AutoComplete";
+import { Loader } from "../Loader";
+import { Menu } from "../Menu";
+import { UserCard } from "./UserCard";
 import { User, useUserData } from "./useUserData";
 
 export const UserSearchPage: FC = () => {
   console.log("Rendered parent component");
+  const [selectedUser, setSelectedUser] = useState<User>();
 
   const { users } = useUserData();
-
-  const handleOnValueChange = (value: User) => {
-    console.log("User selected", value);
-  };
 
   return (
     <div>
@@ -19,19 +17,20 @@ export const UserSearchPage: FC = () => {
         EXERCISE #3 - Create a generic auto-filter dropdown component to filter
         any kind of data
       </h1>
-      <MenuComponent />
+      <Menu />
       {users ? (
-        <AutoCompleteComponent<User>
+        <AutoComplete<User>
           className="form-control user-search--autocomplete"
           placeholder="Enter user name"
           data={users}
           labelProp="name"
           filterProp="username"
-          onValueChange={handleOnValueChange}
+          onValueChange={setSelectedUser}
         />
       ) : (
-        <LoaderComponent />
+        <Loader />
       )}
+      {selectedUser && <UserCard user={selectedUser} />}
     </div>
   );
 };

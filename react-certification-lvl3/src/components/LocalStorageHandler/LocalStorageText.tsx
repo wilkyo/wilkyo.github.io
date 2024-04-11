@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { useLocalStorage } from "../../api/useLocalStorage";
 
-export const LocalStorageTextComponent: FC = () => {
+export const LocalStorageText: FC = () => {
   // No need for setter
   const [text] = useLocalStorage("text");
   // We observe that the component is rerendered only when the "text" storage value is updated
-  console.log("Rendered LocalStorageTextComponent");
+  console.log("Rendered LocalStorageText component");
 
   return (
     <div>

@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren, ReactNode } from "react";
-import "./GenericDialogComponent.scss";
+import "./GenericDialog.scss";
 
 interface GenericDialogProps {
   visible: boolean;
@@ -13,7 +13,7 @@ interface GenericDialogProps {
  * Shows a dialog component over the page. If it's a modal, adds an overlay to block navigation.
  * @param props The body is passed through children
  */
-export const GenericDialogComponent: FC<GenericDialogProps> = (
+export const GenericDialog: FC<GenericDialogProps> = (
   props: PropsWithChildren<GenericDialogProps>
 ) => {
   console.log("Rendered generic dialog component");

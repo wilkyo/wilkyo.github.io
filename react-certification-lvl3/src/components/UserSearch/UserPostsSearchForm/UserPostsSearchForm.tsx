@@ -33,8 +33,8 @@ export const UserPostsSearchForm: FC<PostsSearchFormProps> = (
                   className="form-control"
                   placeholder="Enter post content"
                   data={posts}
-                  labelProp="title"
-                  filterProp="body"
+                  labelKey="title"
+                  filterKey="body"
                   valueChange={setSelectedPost}
                 />
               ) : (
@@ -45,7 +45,7 @@ export const UserPostsSearchForm: FC<PostsSearchFormProps> = (
         </form>
       </div>
       <hr />
-      {selectedPost && (
+      {selectedPost && selectedPost.userId === user.id && (
         <div>
           <h3>There is the selected post</h3>
           <UserPostCard post={selectedPost} />

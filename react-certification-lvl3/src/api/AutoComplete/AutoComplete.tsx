@@ -4,16 +4,16 @@ import "./AutoComplete.scss";
 /**
  * This component is typed for the data it searches for.
  * @param data Array of this type
- * @param labelProp The label to show in the results. They are filtered by it
- * @param filterProp The additionnal filter property.
+ * @param labelKey The label to show in the results. They are filtered by it
+ * @param filterKey The additionnal filter property.
  * @param onValueChange Function called with the selected item
  * @param className To add custom CSS
  * @param placeholder Specifies the placeholder
  */
 interface AutoCompleteProps<T extends object> {
   data: T[];
-  labelProp: keyof T;
-  filterProp?: keyof T;
+  labelKey: keyof T;
+  filterKey?: keyof T;
   valueChange: (value: T) => void;
   className?: string;
   placeholder?: string;
@@ -26,40 +26,56 @@ export const AutoComplete = <T extends object>(
     className,
     placeholder,
     data,
-    labelProp,
-    filterProp = labelProp,
+    labelKey,
+    filterKey = labelKey,
     valueChange,
   } = props;
-  console.log("Render AutoComplete component", labelProp);
+  console.log("Render AutoComplete component", labelKey);
 
   const [inputValue, setInputValue] = useState<string>("");
+
+  // Compare "i" to ignore the case
+  const inputRegex = useMemo(
+    () => new RegExp(`(${inputValue})`, "i"),
+    [inputValue]
+  );
   // TODO : The focus/hover thing
 
   /**
-   * When the input value change, the results list is filtered
+   * When the input value change, the results list is filtered.
+   * Matches on one of the keys passed to the component (label or filter key)
    * @param value The input value
    */
   const filteredData: T[] = useMemo(() => {
     if (!data || inputValue === "" || inputValue === " ") {
       return [];
     }
-    const lowerCaseValue = inputValue.toLowerCase();
 
-    return data.filter((result: T) => {
-      const propA = result[labelProp]?.toString() ?? "";
-      const propB = result[filterProp]?.toString() ?? "";
-
-      // Compare with lowercase to ignore the case
-      return (
-        propA.toLowerCase().includes(lowerCaseValue) ||
-        propB.toLowerCase().includes(lowerCaseValue)
-      );
-    });
-  }, [data, inputValue, labelProp, filterProp]);
+    return data.filter(
+      (result: T) =>
+        inputRegex.test(result[labelKey]?.toString() ?? "") ||
+        inputRegex.test(result[filterKey]?.toString() ?? "")
+    );
+  }, [inputValue, inputRegex, data, labelKey, filterKey]);
 
   const handleOnValueSelected = (value: T) => {
     valueChange(value);
-    setInputValue(value[labelProp]?.toString() ?? ""); // Will trigger a new filtering
+    setInputValue(value[labelKey]?.toString() ?? ""); // Will trigger a new filtering
+  };
+
+  /**
+   * Adds bold on the matches
+   * @param label The label to show
+   * @returns A list of spans with or without bold
+   */
+  const getStyledLabel = (label: string) => {
+    return label
+      .split(inputRegex)
+      .map((element: string, index: number) => (
+        <span key={`${element}${index}`}>
+          {index % 2 === 0 ? element : <b>{element}</b>}
+        </span>
+      ));
   };
 
   return (
@@ -78,11 +94,11 @@ export const AutoComplete = <T extends object>(
         <div className="auto-complete--selector">
           {filteredData.map((result: T) => (
             <button
-              key={result[labelProp]?.toString()}
+              key={result[labelKey]?.toString()}
               className="auto-complete--selector-option"
               onClick={() => handleOnValueSelected(result)}
             >
-              {result[labelProp]?.toString()}
+              {getStyledLabel(result[labelKey]?.toString() ?? "")}
             </button>
           ))}
         </div>

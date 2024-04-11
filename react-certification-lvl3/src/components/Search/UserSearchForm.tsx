@@ -1,30 +1,22 @@
-import { FC, useState } from "react";
-import { AutoComplete } from "../../../api/AutoComplete/AutoComplete";
-import { Loader } from "../../Loader";
-import { User, useUserData } from "../useUsersData";
-import { UserCard } from "./UserCard";
+import { FC, PropsWithChildren } from "react";
+import { AutoComplete } from "../../api/AutoComplete/AutoComplete";
+import { Loader } from "../Loader";
+import { User, useUserData } from "./useUserData";
 
 interface UserSearchFormProps {
   onSelectedUser: (user: User) => void;
 }
 
 export const UserSearchForm: FC<UserSearchFormProps> = (
-  props: UserSearchFormProps
+  props: PropsWithChildren<UserSearchFormProps>
 ) => {
   console.log("Rendered parent component");
-
-  const [user, setUser] = useState<User>();
 
   const { onSelectedUser } = props;
   const { users } = useUserData();
 
-  const handleValueChange = (value: User) => {
-    setUser(value);
-    onSelectedUser(value);
-  };
-
   return (
-    <div className="user-search-form">
+    <div>
       <h2>Search for a user</h2>
       <p>You can search by username or full name</p>
       <form>
@@ -40,7 +32,7 @@ export const UserSearchForm: FC<UserSearchFormProps> = (
                 data={users}
                 labelKey="name"
                 filterKey="username"
-                valueChange={handleValueChange}
+                valueChange={onSelectedUser}
               />
             ) : (
               <Loader />
@@ -48,15 +40,6 @@ export const UserSearchForm: FC<UserSearchFormProps> = (
           </div>
         </div>
       </form>
-      {user && (
-        <>
-          <hr />
-          <div className="user-search--result">
-            <h3>There is the selected user</h3>
-            <UserCard user={user} />
-          </div>
-        </>
-      )}
     </div>
   );
 };

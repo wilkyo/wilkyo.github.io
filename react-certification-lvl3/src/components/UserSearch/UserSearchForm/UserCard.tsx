@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react";
+import { User } from "../useUsersData";
 import "./UserCard.scss";
-import { User } from "./useUserData";
 
 interface UserCardProps {
   user: User;

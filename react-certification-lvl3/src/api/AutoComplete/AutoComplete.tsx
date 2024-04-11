@@ -30,7 +30,7 @@ export const AutoComplete = <T extends object>(
     filterProp = labelProp,
     valueChange,
   } = props;
-  console.log("Render AutoComplete component");
+  console.log("Render AutoComplete component", labelProp);
 
   const [inputValue, setInputValue] = useState<string>("");
   // TODO : The focus/hover thing
@@ -59,7 +59,7 @@ export const AutoComplete = <T extends object>(
 
   const handleOnValueSelected = (value: T) => {
     valueChange(value);
-    setInputValue(value[labelProp]?.toString() ?? "");
+    setInputValue(value[labelProp]?.toString() ?? ""); // Will trigger a new filtering
   };
 
   return (
@@ -78,11 +78,11 @@ export const AutoComplete = <T extends object>(
         <div className="auto-complete--selector">
           {filteredData.map((result: T) => (
             <button
-              key={`${result[labelProp]}`}
+              key={result[labelProp]?.toString()}
               className="auto-complete--selector-option"
               onClick={() => handleOnValueSelected(result)}
             >
-              {`${result[labelProp]}`}
+              {result[labelProp]?.toString()}
             </button>
           ))}
         </div>

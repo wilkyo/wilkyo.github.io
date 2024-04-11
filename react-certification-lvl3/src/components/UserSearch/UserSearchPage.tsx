@@ -1,16 +1,13 @@
 import { FC, useState } from "react";
-import { AutoComplete } from "../../api/AutoComplete/AutoComplete";
-import { Loader } from "../Loader";
 import { Menu } from "../Menu";
-import { UserCard } from "./UserCard";
+import { UserPostsSearchForm } from "./UserPostsSearchForm/UserPostsSearchForm";
+import { UserSearchForm } from "./UserSearchForm/UserSearchForm";
 import "./UserSearchPage.scss";
-import { User, useUserData } from "./useUserData";
+import { User } from "./useUsersData";
 
 export const UserSearchPage: FC = () => {
   console.log("Rendered parent component");
   const [selectedUser, setSelectedUser] = useState<User>();
-
-  const { users } = useUserData();
 
   return (
     <div className="user-search">
@@ -19,36 +16,9 @@ export const UserSearchPage: FC = () => {
         any kind of data
       </h1>
       <Menu />
-      <h2>Search for a user</h2>
-      <p>You can search by username or full name</p>
-      <form>
-        <div className="form-group row">
-          <label htmlFor="input" className="col-form-label col-6">
-            Search user :
-          </label>
-          <div className="col-6">
-            {users ? (
-              <AutoComplete<User>
-                className="form-control"
-                placeholder="Enter user name"
-                data={users}
-                labelProp="name"
-                filterProp="username"
-                valueChange={setSelectedUser}
-              />
-            ) : (
-              <Loader />
-            )}
-          </div>
-        </div>
-      </form>
+      <UserSearchForm onSelectedUser={setSelectedUser} />
       <hr />
-      {selectedUser && (
-        <div className="user-search--result">
-          <h2>There is the selected user</h2>
-          <UserCard user={selectedUser} />
-        </div>
-      )}
+      {selectedUser && <UserPostsSearchForm user={selectedUser} />}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import {
   ROUTE_GENERIC_DIALOG,
   ROUTE_HOME,
   ROUTE_LOCAL_STORAGE_HANDLER,
+  ROUTE_USER_SEARCH,
 } from "../App";
 
 interface MenuRoute {
@@ -27,7 +28,7 @@ export const MenuComponent: FC = () => {
         label: "EXERCISE #2",
       },
       {
-        path: "",
+        path: ROUTE_USER_SEARCH,
         label: "EXERCISE #3",
       },
     ],

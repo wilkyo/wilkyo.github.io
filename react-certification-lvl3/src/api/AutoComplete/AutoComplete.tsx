@@ -1,4 +1,5 @@
 import { ChangeEvent, PropsWithChildren, useMemo, useState } from "react";
+import "./AutoComplete.scss";
 
 /**
  * This component is typed for the data it searches for.
@@ -13,7 +14,7 @@ interface AutoCompleteProps<T extends object> {
   data: T[];
   labelProp: keyof T;
   filterProp?: keyof T;
-  onValueChange: (value: T) => void;
+  valueChange: (value: T) => void;
   className?: string;
   placeholder?: string;
 }
@@ -27,11 +28,12 @@ export const AutoComplete = <T extends object>(
     data,
     labelProp,
     filterProp = labelProp,
-    onValueChange,
+    valueChange,
   } = props;
   console.log("Render AutoComplete component");
 
   const [inputValue, setInputValue] = useState<string>("");
+  // TODO : The focus/hover thing
 
   /**
    * When the input value change, the results list is filtered
@@ -41,29 +43,30 @@ export const AutoComplete = <T extends object>(
     if (!data || inputValue === "" || inputValue === " ") {
       return [];
     }
+    const lowerCaseValue = inputValue.toLowerCase();
 
     return data.filter((result: T) => {
-      const lowerCaseValue = inputValue.toLowerCase();
-      const propA = result[labelProp]?.toString();
-      const propB = result[filterProp]?.toString();
+      const propA = result[labelProp]?.toString() ?? "";
+      const propB = result[filterProp]?.toString() ?? "";
 
+      // Compare with lowercase to ignore the case
       return (
-        propA?.toLowerCase().includes(lowerCaseValue) ||
-        propB?.toLowerCase().includes(lowerCaseValue)
+        propA.toLowerCase().includes(lowerCaseValue) ||
+        propB.toLowerCase().includes(lowerCaseValue)
       );
     });
   }, [data, inputValue, labelProp, filterProp]);
 
   const handleOnValueSelected = (value: T) => {
-    onValueChange(value);
-    setInputValue(""); // The filtered data will empty itself
+    valueChange(value);
+    setInputValue(value[labelProp]?.toString() ?? "");
   };
 
   return (
-    <div className="autoComplete--wrapper">
+    <div className="auto-complete--wrapper">
       <input
         type="text"
-        className={`autoComplete--input ${className ?? ""}`}
+        className={`auto-complete--input ${className ?? ""}`}
         placeholder={placeholder}
         value={inputValue}
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -72,11 +75,11 @@ export const AutoComplete = <T extends object>(
       />
 
       {filteredData.length > 0 && (
-        <div className="autoComplete--selector">
+        <div className="auto-complete--selector">
           {filteredData.map((result: T) => (
             <button
               key={`${result[labelProp]}`}
-              className="autoComplete--selector-option"
+              className="auto-complete--selector-option"
               onClick={() => handleOnValueSelected(result)}
             >
               {`${result[labelProp]}`}

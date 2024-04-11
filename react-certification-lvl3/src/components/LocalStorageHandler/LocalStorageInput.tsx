@@ -11,17 +11,19 @@ export const LocalStorageInput: FC = () => {
       <h2>Update the storage "input" value</h2>
       Update its value from the form field (or from the localStorage)
       <form>
-        <div className="form-group">
-          <label htmlFor="input" className="control-label">
+        <div className="form-group row">
+          <label htmlFor="input" className="col-form-label col-6">
             Input value :
           </label>
-          <input
-            type="text"
-            className="form-control"
-            id="input"
-            value={input ?? ""}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <div className="col-6">
+            <input
+              type="text"
+              className="form-control"
+              id="input"
+              value={input ?? ""}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
         </div>
       </form>
       <hr />

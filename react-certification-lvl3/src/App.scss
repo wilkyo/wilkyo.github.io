@@ -10,20 +10,14 @@
   text-transform: uppercase;
 }
 
-#root select {
-  width: auto;
-  display: inline-block;
-}
-
-#root button {
-  vertical-align: baseline;
-  margin-top: 0.5rem;
-}
-
 form {
   margin-top: 2em;
 }
 
 a.active {
   font-weight: bold;
+}
+
+label.col-form-label {
+  text-align: right;
 }

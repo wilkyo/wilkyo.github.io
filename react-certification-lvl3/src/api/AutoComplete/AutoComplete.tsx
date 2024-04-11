@@ -58,11 +58,6 @@ export const AutoComplete = <T extends object>(
     );
   }, [inputValue, inputRegex, data, labelKey, filterKey]);
 
-  const handleOnValueSelected = (value: T) => {
-    valueChange(value);
-    setInputValue(value[labelKey]?.toString() ?? ""); // Will trigger a new filtering
-  };
-
   /**
    * Adds bold on the matches
    * @param label The label to show
@@ -76,6 +71,11 @@ export const AutoComplete = <T extends object>(
           {index % 2 === 0 ? element : <b>{element}</b>}
         </span>
       ));
+  };
+
+  const handleOnValueSelected = (value: T) => {
+    valueChange(value);
+    setInputValue(value[labelKey]?.toString() ?? ""); // Will trigger a new filtering
   };
 
   return (
@@ -95,6 +95,7 @@ export const AutoComplete = <T extends object>(
           {filteredData.map((result: T) => (
             <button
               key={result[labelKey]?.toString()}
+              type="button"
               className="auto-complete--selector-option"
               onClick={() => handleOnValueSelected(result)}
             >

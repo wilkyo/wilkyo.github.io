@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import { AutoComplete } from "../../api/AutoComplete/AutoComplete";
 import { Loader } from "../Loader";
-import { User, useUserData } from "./useUserData";
+import { User, useUserData } from "../UserSearch/useUsersData";
 
 interface UserSearchFormProps {
   onSelectedUser: (user: User) => void;

@@ -11,7 +11,7 @@ import "./AutoComplete.scss";
  * This component is typed for the data it searches for.
  * @param data Array of this type
  * @param labelKey The label to show in the results. They are filtered by it
- * @param filterKey The additionnal filter property.
+ * @param additionalFilterKey The additionnal filter property.
  * @param onValueChange Function called with the selected item
  * @param className To add custom CSS
  * @param placeholder Specifies the placeholder
@@ -19,7 +19,7 @@ import "./AutoComplete.scss";
 interface AutoCompleteProps<T extends object> {
   data: T[];
   labelKey: keyof T;
-  filterKey?: keyof T;
+  additionalFilterKey?: keyof T;
   valueChange: (value: T) => void;
   className?: string;
   placeholder?: string;
@@ -33,10 +33,10 @@ export const AutoComplete = <T extends object>(
     placeholder,
     data,
     labelKey,
-    filterKey = labelKey,
+    additionalFilterKey = labelKey,
     valueChange,
   } = props;
-  console.log("Render AutoComplete component", labelKey);
+  console.log("Render AutoComplete component", labelKey, additionalFilterKey);
 
   const [inputValue, setInputValue] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -61,9 +61,9 @@ export const AutoComplete = <T extends object>(
     return data.filter(
       (result: T) =>
         inputRegex.test(result[labelKey]?.toString() ?? "") ||
-        inputRegex.test(result[filterKey]?.toString() ?? "")
+        inputRegex.test(result[additionalFilterKey]?.toString() ?? "")
     );
-  }, [inputValue, inputRegex, data, labelKey, filterKey]);
+  }, [inputValue, inputRegex, data, labelKey, additionalFilterKey]);
 
   /**
    * Adds bold on the matches

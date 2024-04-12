@@ -26,7 +26,7 @@ export const UserSearchForm: FC<UserSearchFormProps> = (
   return (
     <div className="user-search-form">
       <h2>Search for a user</h2>
-      <p>You can search by username or full name</p>
+      <p>You can search by full name</p>
       <form>
         <div className="form-group row">
           <label htmlFor="input" className="col-form-label col-6">
@@ -39,7 +39,6 @@ export const UserSearchForm: FC<UserSearchFormProps> = (
                 placeholder="Enter user name"
                 data={users}
                 labelKey="name"
-                filterKey="username"
                 valueChange={handleValueChange}
               />
             ) : (

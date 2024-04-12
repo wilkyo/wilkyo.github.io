@@ -21,7 +21,7 @@ export const UserPostsSearchForm: FC<PostsSearchFormProps> = (
     <div className="posts-search-form">
       <div>
         <h2>Search for their posts</h2>
-        <p>You can search by title or description</p>
+        <p>You can search by title or body</p>
         <form>
           <div className="form-group row">
             <label htmlFor="input" className="col-form-label col-3">
@@ -34,6 +34,7 @@ export const UserPostsSearchForm: FC<PostsSearchFormProps> = (
                   placeholder="Enter post content"
                   data={posts}
                   labelKey="title"
+                  additionalFilterKey="body"
                   valueChange={setSelectedPost}
                 />
               ) : (

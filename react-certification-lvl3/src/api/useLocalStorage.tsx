@@ -27,6 +27,7 @@ export const useLocalStorage = (
 
     return () => {
       console.log("Destroy storage handler", key);
+      // Removes the handler of this instance on destroy
       window.removeEventListener("storage", handleStorageUpdate);
     };
   }, [key]);

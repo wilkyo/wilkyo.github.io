@@ -31,6 +31,7 @@ export const Team: FC = () => {
         <>
           <p>There is no team...</p>
           <button
+            type="button"
             className="btn btn-outline-primary btn-lg"
             onClick={() => setMyTeam("All blacks")}
           >

@@ -85,6 +85,8 @@ export const AutoComplete = <T extends object>(
           filteredData[0][labelKey] !== inputValue
         ) {
           setInputValue("");
+        } else {
+          setIsFocused(false);
         }
       }, 200)
     );

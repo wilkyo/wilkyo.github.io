@@ -14,11 +14,9 @@ export const usePostsData = (userId: number) => {
     // Resets the data, if the userId changes
     setPosts(undefined);
     console.log("Fetching posts data");
-    fetch("https://jsonplaceholder.typicode.com/posts")
+    fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
       .then((response: Response) => response.json())
-      .then((data: UserPost[]) =>
-        setPosts(data.filter((post: UserPost) => post.userId === userId))
-      )
+      .then((data: UserPost[]) => setPosts(data))
       .catch((error) => console.error(error));
   }, [userId]);
 

@@ -1,4 +1,10 @@
-import { ChangeEvent, PropsWithChildren, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  FocusEvent,
+  PropsWithChildren,
+  useMemo,
+  useState,
+} from "react";
 import "./AutoComplete.scss";
 
 /**
@@ -75,9 +81,13 @@ export const AutoComplete = <T extends object>(
   };
 
   /**
-   * On blur, empties the input if it is not the selected value
+   * On blur outside of the wrapper, empties the input if it is not the selected value
    */
-  const handleOnBlur = () => {
+  const handleOnBlur = (event: FocusEvent<Element>) => {
+    if (event.relatedTarget !== null) {
+      return;
+    }
+
     setBlurTimeout(
       setTimeout(() => {
         if (

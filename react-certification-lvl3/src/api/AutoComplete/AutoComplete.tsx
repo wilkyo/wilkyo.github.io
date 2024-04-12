@@ -2,7 +2,6 @@ import {
   ChangeEvent,
   FocusEvent,
   KeyboardEvent,
-  PropsWithChildren,
   useMemo,
   useState,
 } from "react";
@@ -26,9 +25,7 @@ interface AutoCompleteProps<T extends object> {
   placeholder?: string;
 }
 
-export const AutoComplete = <T extends object>(
-  props: PropsWithChildren<AutoCompleteProps<T>>
-) => {
+export const AutoComplete = <T extends object>(props: AutoCompleteProps<T>) => {
   const {
     className,
     placeholder,

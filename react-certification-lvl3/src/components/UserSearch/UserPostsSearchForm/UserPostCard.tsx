@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 import { UserPost } from "../useUserPostsData";
 import "./UserPostCard.scss";
 
@@ -7,7 +7,7 @@ interface UserPostCardProps {
 }
 
 export const UserPostCard: FC<UserPostCardProps> = (
-  props: PropsWithChildren<UserPostCardProps>
+  props: UserPostCardProps
 ) => {
   console.debug("Rendering user post component");
 

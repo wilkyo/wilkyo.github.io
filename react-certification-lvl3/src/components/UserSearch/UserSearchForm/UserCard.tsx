@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 import { User } from "../useUsersData";
 import "./UserCard.scss";
 
@@ -6,9 +6,7 @@ interface UserCardProps {
   user: User;
 }
 
-export const UserCard: FC<UserCardProps> = (
-  props: PropsWithChildren<UserCardProps>
-) => {
+export const UserCard: FC<UserCardProps> = (props: UserCardProps) => {
   console.debug("Rendering user component");
 
   const { user } = props;

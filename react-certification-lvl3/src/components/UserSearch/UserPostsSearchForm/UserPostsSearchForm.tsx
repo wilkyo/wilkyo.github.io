@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { AutoComplete } from "../../../api/AutoComplete/AutoComplete";
 import { Loader } from "../../Loader";
-import { UserPost, usePostsData } from "../useUserPostsData";
+import { UserPost, useUserPostsData } from "../useUserPostsData";
 import { User } from "../useUsersData";
 import { UserPostCard } from "./UserPostCard";
 
@@ -15,7 +15,7 @@ export const UserPostsSearchForm: FC<PostsSearchFormProps> = (
 
   const [selectedPost, setSelectedPost] = useState<UserPost>();
 
-  const { posts } = usePostsData(user.id);
+  const { posts } = useUserPostsData(user.id);
 
   return (
     <div className="posts-search-form">

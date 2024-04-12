@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { TeamRemovalDialog } from "./TeamRemovalDialog";
 
 export const Team: FC = () => {
-  console.log("Rendered team component");
+  console.debug("Rendering team component");
 
   const [myTeam, setMyTeam] = useState<string | undefined>("Wild cats");
 

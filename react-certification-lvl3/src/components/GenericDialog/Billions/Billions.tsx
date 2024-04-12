@@ -2,7 +2,7 @@ import { FC } from "react";
 import { BillionsDialog } from "./BillionsDialog";
 
 export const Billions: FC = () => {
-  console.log("Rendered billions component");
+  console.debug("Rendering billions component");
 
   return (
     <>

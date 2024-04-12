@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { AutoComplete } from "../../../api/AutoComplete/AutoComplete";
 import { Loader } from "../../Loader";
-import { User, useUserData } from "../useUsersData";
+import { User, useUsersData } from "../useUsersData";
 import { UserCard } from "./UserCard";
 
 interface UserSearchFormProps {
@@ -11,12 +11,12 @@ interface UserSearchFormProps {
 export const UserSearchForm: FC<UserSearchFormProps> = (
   props: UserSearchFormProps
 ) => {
-  console.log("Rendered parent component");
+  console.debug("Rendering parent component");
 
   const [user, setUser] = useState<User>();
 
   const { onSelectedUser } = props;
-  const { users } = useUserData();
+  const { users } = useUsersData();
 
   const handleValueChange = (value: User) => {
     setUser(value);

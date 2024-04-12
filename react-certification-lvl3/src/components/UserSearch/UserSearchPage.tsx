@@ -6,7 +6,7 @@ import "./UserSearchPage.scss";
 import { User } from "./useUsersData";
 
 export const UserSearchPage: FC = () => {
-  console.log("Rendered parent component");
+  console.debug("Rendering parent component");
   const [selectedUser, setSelectedUser] = useState<User>();
 
   return (

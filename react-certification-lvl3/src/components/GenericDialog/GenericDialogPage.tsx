@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Menu } from "../Menu";
 import { Billions } from "./Billions/Billions";
-import { loremIpsum } from "./Billions/data";
+import { loremIpsum } from "./Billions/stubData";
 import { Team } from "./Team/Team";
 
 export const GenericDialogPage: FC = () => {
-  console.log("Rendered parent component");
+  console.debug("Rendering parent component");
 
   return (
     <div>

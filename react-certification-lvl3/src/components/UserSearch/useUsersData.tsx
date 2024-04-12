@@ -9,11 +9,11 @@ export interface User {
   // No need for other information
 }
 
-export const useUserData = () => {
+export const useUsersData = () => {
   const [users, setUsers] = useState<User[]>();
 
   useEffect(() => {
-    console.log("Fetching user data");
+    console.log("Fetching users data");
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response: Response) => response.json())
       .then((data: User[]) => setUsers(data))

@@ -9,7 +9,7 @@ interface UserPostCardProps {
 export const UserPostCard: FC<UserPostCardProps> = (
   props: PropsWithChildren<UserPostCardProps>
 ) => {
-  console.log("Rendered user post component");
+  console.debug("Rendering user post component");
 
   const { post } = props;
 

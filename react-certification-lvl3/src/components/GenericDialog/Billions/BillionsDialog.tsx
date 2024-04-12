@@ -1,13 +1,23 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { GenericDialog } from "../../../api/GenericDialog/GenericDialog";
+import { Loader } from "../../Loader";
+import { Photo, usePhotosData } from "../useImagesData";
 import "./BillionsDialog.scss";
-import { imageUrls } from "./data";
 
 export const BillionsDialog: FC = () => {
-  console.log("Rendered parent of billions' dialog component");
+  console.debug("Rendering parent of billions' dialog component");
 
   const [isDialogVisible, setIsDialogVisible] = useState<boolean>(false);
-  const [currentPhoto, setCurrentPhoto] = useState<string>(imageUrls[0]);
+  const [currentPhoto, setCurrentPhoto] = useState<Photo>();
+
+  const { photos } = usePhotosData();
+
+  // Sets the photo after fetch
+  useEffect(() => {
+    if (photos) {
+      setCurrentPhoto(photos[0]);
+    }
+  }, [photos]);
 
   const handleOnClose = () => setIsDialogVisible(false);
 
@@ -40,16 +50,30 @@ export const BillionsDialog: FC = () => {
         }
         footer={
           <div className="billions-dialog--footer">
-            {imageUrls?.map((image: string) => (
-              <button key={image} onClick={() => setCurrentPhoto(image)}>
-                <img src={image} alt="" />
-              </button>
-            ))}
+            {photos ? (
+              photos.map((photo: Photo) => (
+                <button
+                  key={photo.title}
+                  onClick={() => setCurrentPhoto(photo)}
+                >
+                  <img
+                    src={photo.thumbnailUrl}
+                    alt={`${photo.title} thumbnail`}
+                  />
+                </button>
+              ))
+            ) : (
+              <Loader />
+            )}
           </div>
         }
       >
         <div className="billions-dialog--body">
-          <img src={currentPhoto} alt="" />
+          {currentPhoto ? (
+            <img src={currentPhoto.url} alt={currentPhoto.title} />
+          ) : (
+            <Loader />
+          )}
         </div>
       </GenericDialog>
     </>

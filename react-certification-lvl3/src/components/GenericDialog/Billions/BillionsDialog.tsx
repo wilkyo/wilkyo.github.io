@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
-import { GenericDialogComponent } from "../../../api/GenericDialogComponent/GenericDialogComponent";
-import "./BillionsDialogComponent.scss";
+import { GenericDialog } from "../../../api/GenericDialog/GenericDialog";
+import "./BillionsDialog.scss";
 import { imageUrls } from "./data";
 
-export const BillionsDialogComponent: FC = () => {
+export const BillionsDialog: FC = () => {
   console.log("Rendered parent of billions' dialog component");
 
   const [isDialogVisible, setIsDialogVisible] = useState<boolean>(false);
@@ -19,7 +19,7 @@ export const BillionsDialogComponent: FC = () => {
       >
         Click me to show the dialog !
       </button>
-      <GenericDialogComponent
+      <GenericDialog
         visible={isDialogVisible}
         header={
           <div className="billions-dialog--header">
@@ -51,7 +51,7 @@ export const BillionsDialogComponent: FC = () => {
         <div className="billions-dialog--body">
           <img src={currentPhoto} alt="" />
         </div>
-      </GenericDialogComponent>
+      </GenericDialog>
     </>
   );
 };

@@ -1,0 +1,10 @@
+.user-search {
+  margin-bottom: 10rem;
+
+  &-form .auto-complete--wrapper {
+    max-width: 15rem;
+  }
+  &-form &--result h2 {
+    margin-bottom: 2rem;
+  }
+}

@@ -1,13 +1,13 @@
 import { FC, useState } from "react";
-import { GenericDialogComponent } from "../../../api/GenericDialogComponent/GenericDialogComponent";
-import "./TeamRemovalDialogComponent.scss";
+import { GenericDialog } from "../../../api/GenericDialog/GenericDialog";
+import "./TeamRemovalDialog.scss";
 
-interface TeamRemovalDialogComponentProps {
+interface TeamRemovalDialogProps {
   team: string;
   onRemoveTeam: (team: string) => void;
 }
-export const TeamRemovalDialogComponent: FC<TeamRemovalDialogComponentProps> = (
-  props: TeamRemovalDialogComponentProps
+export const TeamRemovalDialog: FC<TeamRemovalDialogProps> = (
+  props: TeamRemovalDialogProps
 ) => {
   console.log("Rendered parent of team removal's dialog component");
 
@@ -29,7 +29,7 @@ export const TeamRemovalDialogComponent: FC<TeamRemovalDialogComponentProps> = (
       >
         Remove the team !
       </button>
-      <GenericDialogComponent
+      <GenericDialog
         isModal
         visible={isDialogVisible}
         footer={
@@ -46,7 +46,7 @@ export const TeamRemovalDialogComponent: FC<TeamRemovalDialogComponentProps> = (
         <div className="team-removal--body">
           Are you sure you want to remove this team ?
         </div>
-      </GenericDialogComponent>
+      </GenericDialog>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
-import { TeamRemovalDialogComponent } from "./TeamRemovalDialogComponent";
+import { TeamRemovalDialog } from "./TeamRemovalDialog";
 
-export const TeamComponent: FC = () => {
+export const Team: FC = () => {
   console.log("Rendered team component");
 
   const [myTeam, setMyTeam] = useState<string | undefined>("Wild cats");
@@ -25,10 +25,7 @@ export const TeamComponent: FC = () => {
             <br />
             But you have to make your choice once the dialog opened !
           </p>
-          <TeamRemovalDialogComponent
-            team={myTeam}
-            onRemoveTeam={handleOnRemoveTeam}
-          />
+          <TeamRemovalDialog team={myTeam} onRemoveTeam={handleOnRemoveTeam} />
         </>
       ) : (
         <>

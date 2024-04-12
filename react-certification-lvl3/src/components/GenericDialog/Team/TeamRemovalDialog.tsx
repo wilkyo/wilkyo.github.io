@@ -24,6 +24,7 @@ export const TeamRemovalDialog: FC<TeamRemovalDialogProps> = (
   return (
     <>
       <button
+        type="button"
         className="btn btn-danger btn-lg"
         onClick={() => setIsDialogVisible(true)}
       >
@@ -34,10 +35,18 @@ export const TeamRemovalDialog: FC<TeamRemovalDialogProps> = (
         visible={isDialogVisible}
         footer={
           <div className="team-removal--footer">
-            <button className="btn btn-light" onClick={handleOnClickNo}>
+            <button
+              type="button"
+              className="btn btn-light"
+              onClick={handleOnClickNo}
+            >
               No
             </button>
-            <button className="btn btn-secondary" onClick={handleOnClickYes}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={handleOnClickYes}
+            >
               Yes
             </button>
           </div>

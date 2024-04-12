@@ -1,6 +1,7 @@
 import {
   ChangeEvent,
   FocusEvent,
+  KeyboardEvent,
   PropsWithChildren,
   useMemo,
   useState,
@@ -44,7 +45,6 @@ export const AutoComplete = <T extends object>(
 
   const [inputValue, setInputValue] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [blurTimeout, setBlurTimeout] = useState<number>();
 
   // Compare "i" to ignore the case
   const inputRegex = useMemo(
@@ -54,7 +54,7 @@ export const AutoComplete = <T extends object>(
 
   /**
    * When the input value change, the results list is filtered.
-   * Matches on one of the keys passed to the component (label or filter key)
+   * Matches on one of the keys passed to the component (label or additional filter key)
    * @param value The input value
    */
   const filteredData: T[] = useMemo(() => {
@@ -67,7 +67,7 @@ export const AutoComplete = <T extends object>(
         inputRegex.test(result[labelKey]?.toString() ?? "") ||
         inputRegex.test(result[additionalFilterKey]?.toString() ?? "")
     );
-  }, [inputValue, inputRegex, data, labelKey, additionalFilterKey]);
+  }, [inputValue, inputRegex, data, labelKey, additionalFilterKey]); // Technically, only the inputValue and its regex will change
 
   /**
    * Adds bold on the matches
@@ -75,46 +75,35 @@ export const AutoComplete = <T extends object>(
    * @returns A list of spans with or without bold
    */
   const getStyledLabel = (label: string) => {
-    return label
-      .split(inputRegex)
-      .map((element: string, index: number) => (
-        <span key={`${element}${index}`}>
-          {index % 2 === 0 ? element : <b>{element}</b>}
-        </span>
-      ));
+    return label.split(inputRegex).map((element: string, index: number) => (
+      // Adding the index to avoir multiple matches with same string
+      // On full match, there are 3 elements (two are empty)
+      <span key={`${element}${index}`}>
+        {index % 2 === 0 ? element : <b>{element}</b>}
+      </span>
+    ));
   };
 
   /**
    * On blur outside of the wrapper, empties the input if it is not the selected value
    */
   const handleOnBlur = (event: FocusEvent<Element>) => {
+    // Clicked inside the wrapper, so ignore it
     if (event.relatedTarget !== null) {
       return;
     }
 
-    setBlurTimeout(
-      setTimeout(() => {
-        if (
-          filteredData.length !== 1 ||
-          filteredData[0][labelKey] !== inputValue
-        ) {
-          setInputValue("");
-        } else {
-          setIsFocused(false);
-        }
-      }, 200)
-    );
+    setIsFocused(false);
   };
 
   const handleOnValueSelected = (value: T) => {
-    // Cancels the timeout set in handleOnBlur
-    clearTimeout(blurTimeout);
-
+    // Notifies the parent
     valueChange(value);
+    // Sets the complete value in the input
     setInputValue(value[labelKey]?.toString() ?? ""); // Will trigger a new filtering
 
     // Removes the focus to hide the list
-    setTimeout(() => setIsFocused(false), 1000);
+    setTimeout(() => setIsFocused(false), 800);
   };
 
   return (
@@ -128,6 +117,10 @@ export const AutoComplete = <T extends object>(
         onBlur={handleOnBlur}
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
           setInputValue(event.target.value)
+        }
+        onKeyDown={(event: KeyboardEvent<HTMLInputElement>) =>
+          // Prevents submitting on Enter
+          event.key === "Enter" && event.preventDefault()
         }
       />
 

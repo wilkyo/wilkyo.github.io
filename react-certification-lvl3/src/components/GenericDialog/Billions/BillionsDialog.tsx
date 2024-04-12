@@ -24,6 +24,7 @@ export const BillionsDialog: FC = () => {
   return (
     <>
       <button
+        type="button"
         className="btn btn-outline-secondary btn-lg"
         onClick={() => setIsDialogVisible(true)}
       >
@@ -39,7 +40,11 @@ export const BillionsDialog: FC = () => {
                   <h2>Billions</h2>
                 </div>
                 <div className="col-3 billions-dialog--header--cross-container">
-                  <button className="btn btn-cross" onClick={handleOnClose}>
+                  <button
+                    type="button"
+                    className="btn btn-cross"
+                    onClick={handleOnClose}
+                  >
                     x
                   </button>
                 </div>
@@ -53,6 +58,7 @@ export const BillionsDialog: FC = () => {
             {photos ? (
               photos.map((photo: Photo) => (
                 <button
+                  type="button"
                   key={photo.title}
                   onClick={() => setCurrentPhoto(photo)}
                 >

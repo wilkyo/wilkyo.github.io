@@ -36,7 +36,11 @@ export const AutoComplete = <T extends object>(
     additionalFilterKey = labelKey,
     valueChange,
   } = props;
-  console.log("Render AutoComplete component", labelKey, additionalFilterKey);
+  console.debug(
+    "Rendering AutoComplete component",
+    labelKey,
+    additionalFilterKey
+  );
 
   const [inputValue, setInputValue] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);

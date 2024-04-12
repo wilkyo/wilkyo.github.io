@@ -4,7 +4,7 @@ import { LocalStorageInput } from "./LocalStorageInput";
 import { LocalStorageText } from "./LocalStorageText";
 
 export const LocalStorageHandlerPage: FC = () => {
-  console.log("Rendered parent component");
+  console.debug("Rendering parent component");
 
   return (
     <div>

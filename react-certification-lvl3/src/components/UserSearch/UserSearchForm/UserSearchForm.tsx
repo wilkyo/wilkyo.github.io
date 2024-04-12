@@ -11,7 +11,7 @@ interface UserSearchFormProps {
 export const UserSearchForm: FC<UserSearchFormProps> = (
   props: UserSearchFormProps
 ) => {
-  console.log("Rendered parent component");
+  console.debug("Rendering parent component");
 
   const [user, setUser] = useState<User>();
 

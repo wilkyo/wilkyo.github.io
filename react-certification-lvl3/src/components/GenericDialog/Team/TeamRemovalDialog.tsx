@@ -9,7 +9,7 @@ interface TeamRemovalDialogProps {
 export const TeamRemovalDialog: FC<TeamRemovalDialogProps> = (
   props: TeamRemovalDialogProps
 ) => {
-  console.log("Rendered parent of team removal's dialog component");
+  console.debug("Rendering parent of team removal's dialog component");
 
   const { team, onRemoveTeam } = props;
 

@@ -4,7 +4,7 @@ import { useLocalStorage } from "../../api/useLocalStorage";
 export const LocalStorageInput: FC = () => {
   const [input, setName] = useLocalStorage("input");
   // We observe that the component is rerendered only when the "input" storage value is updated
-  console.log("Rendered LocalStorageInput component");
+  console.debug("Rendering LocalStorageInput component");
 
   return (
     <div>

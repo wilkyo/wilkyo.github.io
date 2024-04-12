@@ -9,7 +9,7 @@ interface UserCardProps {
 export const UserCard: FC<UserCardProps> = (
   props: PropsWithChildren<UserCardProps>
 ) => {
-  console.log("Rendered user component");
+  console.debug("Rendering user component");
 
   const { user } = props;
 

@@ -5,7 +5,7 @@ import { Photo, usePhotosData } from "../useImagesData";
 import "./BillionsDialog.scss";
 
 export const BillionsDialog: FC = () => {
-  console.log("Rendered parent of billions' dialog component");
+  console.debug("Rendering parent of billions' dialog component");
 
   const [isDialogVisible, setIsDialogVisible] = useState<boolean>(false);
   const [currentPhoto, setCurrentPhoto] = useState<Photo>();

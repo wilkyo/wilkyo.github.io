@@ -16,7 +16,7 @@ interface GenericDialogProps {
 export const GenericDialog: FC<GenericDialogProps> = (
   props: PropsWithChildren<GenericDialogProps>
 ) => {
-  console.log("Rendered generic dialog component");
+  console.debug("Rendering generic dialog component");
 
   const { visible, isModal = false, header, children: body, footer } = props;
 

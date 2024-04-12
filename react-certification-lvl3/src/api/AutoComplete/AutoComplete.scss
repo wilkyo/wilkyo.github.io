@@ -9,6 +9,12 @@
     border-radius: 0.5rem;
   }
   &--selector {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 3px 0px #aaa;
     &-option {
       text-align: left;
       width: 100%;

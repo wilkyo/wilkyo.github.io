@@ -34,7 +34,6 @@ export const UserPostsSearchForm: FC<PostsSearchFormProps> = (
                   placeholder="Enter post content"
                   data={posts}
                   labelKey="title"
-                  filterKey="body"
                   valueChange={setSelectedPost}
                 />
               ) : (

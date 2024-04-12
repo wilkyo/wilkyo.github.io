@@ -33,13 +33,14 @@ export const AutoComplete = <T extends object>(
   console.log("Render AutoComplete component", labelKey);
 
   const [inputValue, setInputValue] = useState<string>("");
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [blurTimeout, setBlurTimeout] = useState<number>();
 
   // Compare "i" to ignore the case
   const inputRegex = useMemo(
     () => new RegExp(`(${inputValue})`, "i"),
     [inputValue]
   );
-  // TODO : The focus/hover thing
 
   /**
    * When the input value change, the results list is filtered.
@@ -73,9 +74,31 @@ export const AutoComplete = <T extends object>(
       ));
   };
 
+  /**
+   * On blur, empties the input if it is not the selected value
+   */
+  const handleOnBlur = () => {
+    setBlurTimeout(
+      setTimeout(() => {
+        if (
+          filteredData.length !== 1 ||
+          filteredData[0][labelKey] !== inputValue
+        ) {
+          setInputValue("");
+        }
+      }, 200)
+    );
+  };
+
   const handleOnValueSelected = (value: T) => {
+    // Cancels the timeout set in handleOnBlur
+    clearTimeout(blurTimeout);
+
     valueChange(value);
     setInputValue(value[labelKey]?.toString() ?? ""); // Will trigger a new filtering
+
+    // Removes the focus to hide the list
+    setTimeout(() => setIsFocused(false), 1000);
   };
 
   return (
@@ -85,12 +108,14 @@ export const AutoComplete = <T extends object>(
         className={`auto-complete--input ${className ?? ""}`}
         placeholder={placeholder}
         value={inputValue}
+        onFocus={() => setIsFocused(true)}
+        onBlur={handleOnBlur}
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
           setInputValue(event.target.value)
         }
       />
 
-      {filteredData.length > 0 && (
+      {filteredData.length > 0 && isFocused && (
         <div className="auto-complete--selector">
           {filteredData.map((result: T) => (
             <button

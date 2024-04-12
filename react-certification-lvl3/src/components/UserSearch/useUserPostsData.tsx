@@ -11,6 +11,8 @@ export const usePostsData = (userId: number) => {
   const [posts, setPosts] = useState<UserPost[]>();
 
   useEffect(() => {
+    // Resets the data, if the userId changes
+    setPosts(undefined);
     console.log("Fetching posts data");
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response: Response) => response.json())
